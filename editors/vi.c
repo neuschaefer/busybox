@@ -9,7 +9,6 @@
  * Things To Do:
  *	EXINIT
  *	$HOME/.exrc  and  ./.exrc
- *	add magic to search	/foo.*bar
  *	add :help command
  *	:map macros
  *	if mark[] values were line numbers rather than pointers
