@@ -3481,7 +3481,7 @@ static void do_cmd(int c)
 			undo_queue_commit();
 		} else {
 			if (1 <= c || Isprint(c)) {
-				if (c != 27)
+				if (c != 27 && !is_backspace(c))
 					dot = yank_delete(dot, dot, 0, YANKDEL, ALLOW_UNDO);	// delete char
 				dot = char_insert(dot, c, ALLOW_UNDO_CHAIN);	// insert new char
 			}
