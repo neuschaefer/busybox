@@ -4131,7 +4131,7 @@ static void do_cmd(int c)
 		} else if (strchr("^0bBeEft%$ lh\b\177", c1)) {
 			// partial line copy text into a register and delete
 			dot = yank_delete(p, q, ml, yf, ALLOW_UNDO);	// delete word
-		} else if (strchr("cdykjHL+-{}\r\n", c1)) {
+		} else if (strchr("cdykjHLgG+-{}\r\n", c1)) {
 			// whole line copy text into a register and delete
 			dot = yank_delete(p, q, ml, yf, ALLOW_UNDO);	// delete lines
 			whole = 1;
