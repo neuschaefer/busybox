@@ -488,6 +488,7 @@ struct globals {
 static void edit_file(char *);	// edit one file
 static void do_cmd(int);	// execute a command
 static int next_tabstop(int);
+static int is_backspace(int c);	// is c a backspace character?
 static void sync_cursor(char *, int *, int *);	// synchronize the screen cursor to dot
 static char *begin_line(char *);	// return pointer to cur line B-o-l
 static char *end_line(char *);	// return pointer to cur line E-o-l
@@ -1559,6 +1560,11 @@ static int next_tabstop(int col)
 	return col + ((tabstop - 1) - (col % tabstop));
 }
 
+static int is_backspace(int c)
+{
+	return c == erase_char || c == 8 || c == 127;
+}
+
 //----- Synchronize the cursor to Dot --------------------------
 static NOINLINE void sync_cursor(char *d, int *row, int *col)
 {
@@ -2019,7 +2025,7 @@ static char *char_insert(char *p, char c, int undo) // insert the char c at 'p'
 		if ((p[-1] != '\n') && (dot > text)) {
 			p--;
 		}
-	} else if (c == erase_char || c == 8 || c == 127) { // Is this a BS
+	} else if (is_backspace(c)) { // Is this a BS
 		if (p > text) {
 			p--;
 			p = text_hole_delete(p, p, ALLOW_UNDO_QUEUED);	// shrink buffer 1 char
@@ -2889,7 +2895,7 @@ static char *get_input_line(const char *prompt)
 		c = get_one_char();
 		if (c == '\n' || c == '\r' || c == 27)
 			break;		// this is end of input
-		if (c == erase_char || c == 8 || c == 127) {
+		if (is_backspace(c)) {
 			// user wants to erase prev char
 			buf[--i] = '\0';
 			write1("\b \b"); // erase char on screen
