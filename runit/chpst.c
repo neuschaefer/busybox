@@ -38,7 +38,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //config:	bool "setuidgid (4.2 kb)"
 //config:	default y
 //config:	help
-//config:	Sets soft resource limits as specified by options
+//config:	Sets the uid and gid to those of the given account
 //config:
 //config:config ENVUIDGID
 //config:	bool "envuidgid (3.6 kb)"
