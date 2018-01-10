@@ -2118,13 +2118,13 @@ static int find_range(char **start, char **stop, char c)
 		if (dot > text && *dot == '\n')
 			dot--;		// stay off NL
 		q = dot;
-	} else if (strchr("H-k{", c)) {
+	} else if (strchr("H-k{g", c)) {
 		// these operate on multi-lines backwards
 		q = end_line(dot);	// find NL
 		do_cmd(c);		// execute movement cmd
 		dot_begin();
 		p = dot;
-	} else if (strchr("L+j}\r\n", c)) {
+	} else if (strchr("L+j}G\r\n", c)) {
 		// these operate on multi-lines forwards
 		p = begin_line(dot);
 		do_cmd(c);		// execute movement cmd
