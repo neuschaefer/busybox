@@ -30,6 +30,13 @@
 # endif
 #endif
 
+#ifdef __TINYC__
+/* tinycc supports a few attributes, but glibc likes to define __attribute__(x)
+   to nothing if it detects a non-GNUC compiler. Undo the damage. */
+#include <errno.h> /* include anything, just to get the #define __attribute__(x) */
+#undef __attribute__
+#endif
+
 #undef inline
 #if defined(__STDC_VERSION__) && __STDC_VERSION__ > 199901L
 /* it's a keyword */
