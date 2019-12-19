@@ -1,6 +1,6 @@
 # This is completely unsupported.
 #
-# Uasge: make -f scripts/Makefile.IMA
+# Usage: make -f scripts/Makefile.IMA
 #
 # Fix COMBINED_COMPILE upstream (in the Kbuild) and propagate
 # the changes back
