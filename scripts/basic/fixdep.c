@@ -335,15 +335,17 @@ void parse_dep_file(void *map, size_t len)
 		p = m;
 		while (p < end && *p != ' ') p++;
 		if (p == end) {
-			do p--; while (!isalnum(*p));
+			do p--; while (!isalnum(*p) && p >= m);
 			p++;
 		}
-		memcpy(s, m, p-m); s[p-m] = 0;
-		if (strrcmp(s, "include/autoconf.h") &&
-		    strrcmp(s, "arch/um/include/uml-config.h") &&
-		    strrcmp(s, ".ver")) {
-			printf("  %s \\\n", s);
-			do_config_file(s);
+		if (p-m > 0) {
+			memcpy(s, m, p-m); s[p-m] = 0;
+			if (strrcmp(s, "include/autoconf.h") &&
+			    strrcmp(s, "arch/um/include/uml-config.h") &&
+			    strrcmp(s, ".ver")) {
+				printf("  %s \\\n", s);
+				do_config_file(s);
+			}
 		}
 		m = p + 1;
 	}
